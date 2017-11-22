@@ -5,10 +5,12 @@ pipeline {
   agent any
 
   stages {
-      stage('Checkout'){
-
-          checkout scm
-       }
+       stage('Checkout SCM') {
+      steps {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkey', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
+        echo 'Done'
+      }
+    }
 
        stage('Test'){
 
@@ -22,12 +24,7 @@ pipeline {
          sh 'npm test'
 
        }
-    // stage('Checkout SCM') {
-    //   steps {
-    //     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkey', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
-    //     echo 'Done'
-    //   }
-    // }
+
 
     // stage('Installing Dependencies') {
     //   steps {
