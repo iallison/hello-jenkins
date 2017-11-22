@@ -9,11 +9,11 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build("test-node-app")
+        app = docker.build("abhartiya/test-node-app")
     }
 
     stage('Test image') {
-       sh 'docker run -i --rm test-node-app ./script/test'
+       sh 'docker run -i --rm abhartiya/test-node-app ./script/test'
     }
 
     stage('Push image') {
