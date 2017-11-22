@@ -13,9 +13,7 @@ node {
     }
 
     stage('Test image') {
-        app.inside {
-            sh './script/test'
-        }
+       sh 'docker run -i --rm test-node-app ./script/test'
     }
 
     // stage('Push image') {
