@@ -35,7 +35,7 @@
 node {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkey', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     echo 'Done'
-    def customImage = docker.build("test")
+    def customImage = docker.build("test-app")
     echo 'Done2'
     // customImage.push()
 }

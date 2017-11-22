@@ -1,17 +1,12 @@
 FROM jenkins:latest
 MAINTAINER anshuman.bhartiya@gmail.com
 USER root
-RUN apt-get update \
-      && apt-get install -y sudo \
-      && rm -rf /var/lib/apt/lists/*
-RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN apt-get update -qq
-RUN apt-get install -qqy apt-transport-https ca-certificates
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-RUN echo deb https://apt.dockerproject.org/repo debian-jessie main > /etc/apt/sources.list.d/docker.list
-RUN apt-get update -qq
-RUN apt-get install -qqy docker-engine
+RUN apt-get -qq update \
+    && apt-get -qq -y install \
+   curl
+RUN curl -sSL https://get.docker.com/ | sh
 RUN mkdir /keys
 COPY data/id_rsa_test /keys/id_rsa_test
 RUN chown -R jenkins:jenkins /keys/id_rsa_test
+RUN usermod -a -G staff jenkins
 USER jenkins
