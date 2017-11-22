@@ -21,14 +21,16 @@ pipeline {
        stage('Test'){
         steps{
          sh '/root/.nvm/versions/node/v7.10.1/bin/node -v'
-         sh '/root/.nvm/versions/node/v7.10.1/bin/npm install'
+         dir('/var/jenkins_home/workspace/test') {
+            sh '/root/.nvm/versions/node/v7.10.1/bin/npm install'
+            }
         }
     }
-  }
 
-  post {
-    always {
-      cleanupAndNotify(currentBuild.currentResult)
+    stage('Cleanup'){
+        steps{
+            cleanWs()
+        }
     }
   }
 }
