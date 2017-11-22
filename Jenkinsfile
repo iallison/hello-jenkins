@@ -4,9 +4,9 @@ pipeline {
 
   agent any
 
-   environment {
-        NODE_PATH = "/root/.nvm/versions/node/v7.10.1/bin/node"
-    }
+//    environment {
+//         NODE_PATH = "/root/.nvm/versions/node/v7.10.1/bin/node"
+//     }
 
   stages {
        stage('Checkout SCM') {
@@ -19,10 +19,10 @@ pipeline {
        stage('Test'){
 
         steps{
-         sh 'node -v'
-         sh 'npm prune'
-         sh 'npm install'
-         sh 'npm test'
+         sh '/root/.nvm/versions/node/v7.10.1/bin/node -v'
+         sh '/root/.nvm/versions/node/v7.10.1/bin/npm prune'
+         sh '/root/.nvm/versions/node/v7.10.1/bin/npm install'
+         sh '/root/.nvm/versions/node/v7.10.1/bin/npm test'
         }
     }
 
