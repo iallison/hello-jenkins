@@ -4,9 +4,9 @@ pipeline {
 
   agent any
 
-   environment {
-        NODE_PATH = "/usr/bin/nodejs"
-    }
+//    environment {
+//         NODE_PATH = "/usr/bin/nodejs"
+//     }
 
   stages {
        stage('Checkout SCM') {
@@ -18,11 +18,7 @@ pipeline {
 
        stage('Test'){
 
-        //  env.NODE_ENV = "test"
-
-        //  print "Environment will be : ${env.NODE_ENV}"
         steps{
-        //  env.NODE_PATH = "/usr/bin/nodejs"
          sh 'node -v'
          sh 'npm prune'
          sh 'npm install'
