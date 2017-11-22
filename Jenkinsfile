@@ -18,6 +18,7 @@ pipeline {
 
         //  print "Environment will be : ${env.NODE_ENV}"
         steps{
+         env.NODE_PATH = "/usr/bin/nodejs"
          sh 'node -v'
          sh 'npm prune'
          sh 'npm install'
