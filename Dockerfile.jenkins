@@ -1,0 +1,8 @@
+FROM jenkins:latest
+MAINTAINER anshuman.bhartiya@gmail.com
+USER root
+RUN apt-get update && apt-get install -y nodejs vim
+RUN mkdir /keys
+COPY data/id_rsa_test /keys/id_rsa_test
+RUN chown -R jenkins:jenkins /keys/id_rsa_test
+USER jenkins

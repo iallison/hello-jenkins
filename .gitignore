@@ -28,3 +28,4 @@ node_modules
 
 # swp files
 *.swp
+id_rsa_test
