@@ -24,6 +24,7 @@ pipeline {
          sh '/root/.nvm/versions/node/v7.10.1/bin/npm install'
         }
     }
+  }
 
   post {
     always {
