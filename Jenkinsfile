@@ -13,17 +13,14 @@ pipeline {
   stages {
        stage('Checkout SCM') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkeys', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkey', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
         echo 'Done'
       }
     }
 
-       stage('Test'){
+       stage('Building'){
         steps{
-         sh '/root/.nvm/versions/node/v7.10.1/bin/node -v'
-         dir('/var/jenkins_home/workspace/test') {
-            sh '/root/.nvm/versions/node/v7.10.1/lib/node_modules/npm install'
-            }
+            def app = docker.build "test-app"
         }
     }
 

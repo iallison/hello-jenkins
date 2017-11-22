@@ -2,9 +2,7 @@ FROM jenkins:latest
 MAINTAINER anshuman.bhartiya@gmail.com
 USER root
 RUN apt-get update
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-RUN /bin/bash -c "source ~/.bashrc && nvm install 7"
 RUN mkdir /keys
 COPY data/id_rsa_test /keys/id_rsa_test
-# RUN chown -R jenkins:jenkins /keys/id_rsa_test
-# USER jenkins
+RUN chown -R jenkins:jenkins /keys/id_rsa_test
+USER jenkins
