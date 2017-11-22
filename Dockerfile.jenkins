@@ -1,7 +1,10 @@
 FROM jenkins:latest
 MAINTAINER anshuman.bhartiya@gmail.com
 USER root
-RUN apt-get update
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN mkdir /keys
 COPY data/id_rsa_test /keys/id_rsa_test
 RUN chown -R jenkins:jenkins /keys/id_rsa_test
