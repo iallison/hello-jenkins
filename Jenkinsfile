@@ -4,9 +4,9 @@ pipeline {
 
   agent any
 
-//    environment {
-//         NODE_PATH = "/usr/bin/nodejs"
-//     }
+   environment {
+        NODE_PATH = "/root/.nvm/versions/node/v7.10.1/bin/node"
+    }
 
   stages {
        stage('Checkout SCM') {
