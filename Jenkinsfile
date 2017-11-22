@@ -22,7 +22,7 @@ pipeline {
         steps{
          sh '/root/.nvm/versions/node/v7.10.1/bin/node -v'
          dir('/var/jenkins_home/workspace/test') {
-            sh '/root/.nvm/versions/node/v7.10.1/bin/npm install'
+            sh '/root/.nvm/versions/node/v7.10.1/lib/node_modules/npm install'
             }
         }
     }
