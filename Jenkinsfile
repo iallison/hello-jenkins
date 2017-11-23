@@ -5,7 +5,7 @@ node {
 
     stage('Clone repository') {
         // checkout scm
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'sshkey', url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'summon-conjur jenkins/ssh-key'.execute().text, url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     }
 
     stage('Build image') {
@@ -17,7 +17,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        docker.withRegistry('https://registry.hub.docker.com', 'summon-conjur docker/docker-hub-credentials'.execute().text) {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
