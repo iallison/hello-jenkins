@@ -4,22 +4,25 @@ node {
     def app
 
     stage('Clone repository') {
-       checkout scm
+        // checkout scm
+        // sh 'key = summon-conjur jenkins/ssh-key'
+        // echo '$key'
+        sh "export GIT_SSH_COMMAND='summon-conjur --yaml \"SSH_KEY: !var:file path/to/ssh-key\" ssh -i \$SSH_KEY'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'summon-conjur jenkins/ssh-key'.execute().text, url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     }
 
     stage('Build image') {
-        sh './build.sh'
+        app = docker.build("abhartiya/test-node-app")
     }
 
     stage('Test image') {
        sh 'docker run -i --rm abhartiya/test-node-app ./script/test'
     }
 
-    // stage('Push image') {
-    //     sh 'push.sh'
-    //     docker.withRegistry('https://registry.hub.docker.com', 'summon-conjur docker/docker-hub-credentials'.execute().text) {
-    //         app.push("${env.BUILD_NUMBER}")
-    //         app.push("latest")
-    //     }
-    // }
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'summon-conjur docker/docker-hub-credentials'.execute().text) {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }
 }
