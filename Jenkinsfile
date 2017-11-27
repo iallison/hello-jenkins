@@ -5,8 +5,8 @@ node {
 
     stage('Clone repository') {
         // checkout scm
-        sh 'key = summon-conjur jenkins/ssh-key'
-        echo '$key'
+        // sh 'key = summon-conjur jenkins/ssh-key'
+        // echo '$key'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'summon-conjur jenkins/ssh-key'.execute().text, url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     }
 
