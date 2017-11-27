@@ -8,7 +8,7 @@ node {
     }
 
     stage('Build image') {
-        sh 'build.sh'
+        sh './build.sh'
     }
 
     stage('Test image') {
