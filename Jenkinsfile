@@ -4,9 +4,6 @@ node {
     def app
 
     stage('Clone repository') {
-        // checkout scm
-        // sh 'key = summon-conjur jenkins/ssh-key'
-        // echo '$key'
         sh "export GIT_SSH_COMMAND='summon-conjur --yaml \"SSH_KEY: !var:file jenkins/ssh-key\" ssh -i \$SSH_KEY'"
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     }
@@ -20,9 +17,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'summon-conjur docker/docker-hub-credentials'.execute().text) {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+        sh "summon-conjur docker/docker-hub-password | docker login --username $(summon-conjur docker/docker-hub-username) --password-stdin"
+        sh "docker push abhartiya/test-node-app:\${env.BUILD_NUMBER}"
     }
 }
