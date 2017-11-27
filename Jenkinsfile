@@ -8,7 +8,7 @@ node {
         // sh 'key = summon-conjur jenkins/ssh-key'
         // echo '$key'
         sh "export GIT_SSH_COMMAND='summon-conjur --yaml \"SSH_KEY: !var:file jenkins/ssh-key\" ssh -i \$SSH_KEY'"
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'summon-conjur jenkins/ssh-key'.execute().text, url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/anshumanbh/hello-jenkins.git']]])
     }
 
     stage('Build image') {
