@@ -9,11 +9,11 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build("abhartiya/test-node-app")
+        sh "docker build -t abhartiya/test-node-app:${env.BUILD_NUMBER} ."
     }
 
     stage('Test image') {
-       sh 'docker run -i --rm abhartiya/test-node-app ./script/test'
+       sh "docker run -i --rm abhartiya/test-node-app:${env.BUILD_NUMBER} ./script/test"
     }
 
     stage('Push image') {
