@@ -17,7 +17,7 @@ node {
     }
 
     stage('Push image') {
-        sh "docker login --username \$(summon-conjur docker/docker-hub-username) --password \$(summon-conjur docker/docker-hub-password)"
+        sh "summon-conjur docker/docker-hub-password | docker login --username \$(summon-conjur docker/docker-hub-username) --password-stdin"
         sh "docker push abhartiya/test-node-app:\${env.BUILD_NUMBER}"
     }
 }
