@@ -1,1 +1,0 @@
-docker build -t abhartiya/test-node-app .
