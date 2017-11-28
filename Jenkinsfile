@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 node {
-    def app
 
     stage('Clone repository') {
         sh "export GIT_SSH_COMMAND='summon-conjur --yaml \"SSH_KEY: !var:file jenkins/ssh-key\" ssh -i \$SSH_KEY'"
